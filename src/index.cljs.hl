@@ -1,0 +1,17 @@
+(page "index.html"
+      (:require
+        [business.logic :refer [person]]))
+
+(defelem toggle-button [{:keys [data] :as opts} _]
+  (let [greeting (defc= greeting (str "Hello " data))
+        attrs (dissoc opts :data)
+        tgl (fn [c] (if (= "Tom" c) "Bobak" "Tom"))
+        header (repeatedly #(h1 greeting))]
+    [(take 4 header)
+     (button attrs "Tom"
+             :click #(swap! data tgl))]))
+(html
+  (head (title "TRY :foreign-lib"))
+  (body
+    (toggle-button :style "color:red" :data person)
+    (toggle-button :data (cell "Other"))))
